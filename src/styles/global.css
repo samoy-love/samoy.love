@@ -58,6 +58,22 @@ img { max-width: 100%; height: auto; display: block; }
 
 ::selection { background: color-mix(in oklch, var(--accent) 35%, transparent); }
 
+/* Skip-ссылка: первая цель по Tab, уводит за фиксированную навигацию */
+.skip-link {
+  position: absolute;
+  left: 0.5rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.7em 1.2em;
+  border-radius: 0 0 var(--radius) var(--radius);
+  background: var(--bg-raise);
+  border: 1px solid var(--accent);
+  color: var(--text);
+  font-weight: 600;
+  transition: top 0.15s;
+}
+.skip-link:focus { top: 0; text-decoration: none; }
+
 .container { width: var(--container); margin-inline: auto; }
 
 .mono {

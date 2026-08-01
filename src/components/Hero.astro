@@ -51,7 +51,7 @@ const featured = profile.featuredAchievements
         <p class="quest">{profile.currentQuest}</p>
       </div>
 
-      <div class="sheet-block">
+      <div class="sheet-block ach-block">
         <p class="mono block-label">последние ачивки</p>
         <ul class="ach-row" role="list">
           {featured.map((a) => (
@@ -77,9 +77,24 @@ const featured = profile.featuredAchievements
 </header>
 
 <script>
-  import { initHeroScene } from '../islands/hero-scene';
-  const canvas = document.getElementById('hero-canvas') as HTMLCanvasElement;
-  if (!initHeroScene(canvas)) canvas.remove(); // Lite/Static: остаётся CSS-фон
+  // Уровень эффектов решается ДО загрузки модуля: на Lite/Static устройства
+  // ~15 КБ WebGL-кода даже не скачиваются. Фолбэк — CSS-фон в .scene.
+  const canvas = document.getElementById('hero-canvas') as HTMLCanvasElement | null;
+  const nav = navigator as Navigator & { deviceMemory?: number };
+  const weak = (nav.hardwareConcurrency ?? 8) <= 4 || (nav.deviceMemory ?? 8) <= 4;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (canvas) {
+    if (reduced || weak) {
+      canvas.remove();
+    } else {
+      import('../islands/hero-scene')
+        .then(({ initHeroScene }) => {
+          if (!initHeroScene(canvas)) canvas.remove();
+        })
+        .catch(() => canvas.remove());
+    }
+  }
 </script>
 
 <style>
@@ -123,15 +138,26 @@ const featured = profile.featuredAchievements
     position: relative;
     z-index: 1;
     display: grid;
-    gap: clamp(1.6rem, 4vw, 3.5rem);
-    padding-block: 3rem 4.5rem;
+    gap: clamp(1.2rem, 4vw, 3.5rem);
+    padding-block: 2rem 3.5rem;
   }
   @media (min-width: 880px) {
     .hero-inner {
       grid-template-columns: 1.25fr 1fr;
       align-items: center;
+      padding-block: 3rem 4.5rem;
     }
     .metrics { grid-column: 1 / -1; }
+  }
+
+  /* Мобильный порядок: сначала имя и цифры — самое цепляющее, панель ниже.
+     Иначе первый экран занимала бы длинная карточка персонажа. */
+  @media (max-width: 879px) {
+    .metrics { order: 2; }
+    .sheet { order: 3; }
+    /* Ачивки здесь дублируют трофейную полку в секции «Путь» — на узком
+       экране это лишняя высота. */
+    .sheet .ach-block { display: none; }
   }
 
   /* ---- левая колонка ---- */
@@ -197,7 +223,7 @@ const featured = profile.featuredAchievements
     border-radius: calc(var(--radius) + 6px);
     background: color-mix(in oklch, var(--bg-raise) 78%, transparent);
     backdrop-filter: blur(16px);
-    padding: 1.4rem 1.5rem;
+    padding: clamp(1rem, 3vw, 1.4rem) clamp(1.1rem, 3vw, 1.5rem);
     box-shadow:
       0 24px 70px oklch(0.05 0.01 260 / 0.5),
       inset 0 1px 0 color-mix(in oklch, var(--text) 8%, transparent);
@@ -248,12 +274,12 @@ const featured = profile.featuredAchievements
     padding: 0;
     margin: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 0.8rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(140px, 45%), 1fr));
+    gap: 0.6rem;
   }
   .metrics li {
     text-align: center;
-    padding: 1rem 0.8rem;
+    padding: clamp(0.7rem, 2.5vw, 1rem) 0.8rem;
     border: 1px solid var(--line);
     border-radius: var(--radius);
     background: color-mix(in oklch, var(--bg-raise) 60%, transparent);
