@@ -46,6 +46,36 @@ ssh-copy-id -i deploy_key.pub user@server
 - **Вручную**: вкладка Actions → Deploy → Run workflow.
 - PR и ветки проверяются workflow `CI` (сборка без деплоя).
 
+## Раскладка nginx на сервере (207.127.93.34)
+
+На хосте живут четыре сайта, и у каждого конфига есть владелец — **деплой своего
+проекта перезаписывает файл целиком**, поэтому переименовывать их нельзя:
+
+| Файл в `sites-available` | Домен | Кем перезаписывается |
+|---|---|---|
+| `chillhub-launcher.conf` | launcher.samoy.love | CI ChillHub (`deploy/launcher.conf`) |
+| `metro.conf` | metro.samoy.love | `scripts/deploy.sh` в MetroMap |
+| `snakes.conf` | snakes.samoy.love | деплой Snakes |
+| `samoy.love.conf` | samoy.love, www | этот репозиторий |
+| `000-default.conf` | catch-all | вручную, см. ниже |
+
+`000-default.conf` — общесерверный: без него default_server'ом становился первый
+по алфавиту конфиг (ChillHub), и любой чужой домен, направленный на этот IP,
+отдавал бы чужой сайт. Теперь такие запросы обрываются (444 / отказ в TLS).
+
+В `nginx.conf` отключены TLSv1 и TLSv1.1 и сужен include до `sites-enabled/*.conf`,
+чтобы случайный `.bak` рядом с конфигом не подхватился молча.
+
+Бэкапы: `/root/nginx-backup-cleanup.tar.gz`, прежние версии — в `/etc/nginx/archive/`.
+
+Осиротевший `launcher.conf` (старый общий конфиг launcher+metro, больше не
+подключён) скопирован в `/etc/nginx/archive/launcher.conf.retired-2026-08-01`.
+Удалить оригинал:
+
+```bash
+sudo rm /etc/nginx/sites-available/launcher.conf && sudo nginx -t
+```
+
 ## Локально
 
 ```bash
