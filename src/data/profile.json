@@ -1,0 +1,25 @@
+{
+  "name": "Алексей Самойлов",
+  "class": "Teamlead @ Почта Mail.ru",
+  "tagline": "Днём — команда и сервисы Почты Mail.ru. Вечером — Go, протоколы, карты и игры. Мне просто нравится делать.",
+  "status": "открыт к интересным разговорам",
+  "currentQuest": "Развиваю продукт Почты Mail.ru — от гипотез до релизов на десятки миллионов пользователей",
+  "stats": [
+    { "value": "1+", "label": "год руковожу командой" },
+    { "value": "10", "label": "человек в команде" },
+    { "value": "2", "label": "продукта на работе" },
+    { "value": "3", "label": "pet-проекта в проде" }
+  ],
+  "skills": [
+    { "name": "Go / Backend", "note": "основной инструмент" },
+    { "name": "Архитектура", "note": "системы с нуля до прода" },
+    { "name": "Команда", "note": "найм, рост, процессы" },
+    { "name": "Продукт", "note": "от гипотезы до релиза" }
+  ],
+  "featuredAchievements": ["teamlead", "highload", "shipped-snakes"],
+  "contacts": {
+    "email": "alex@samoy.love",
+    "telegram": "https://t.me/tr0llex",
+    "github": "https://github.com/tr0llex"
+  }
+}

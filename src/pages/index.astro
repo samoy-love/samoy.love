@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Timeline from '../components/Timeline.astro';
+import WorkCases from '../components/WorkCases.astro';
+import PetProjects from '../components/PetProjects.astro';
+import Contacts from '../components/Contacts.astro';
+---
+
+<Layout
+  title="Алексей Самойлов — Teamlead @ Почта Mail.ru"
+  description="Личная страница: путь Backend → Teamlead, рабочие кейсы Почты Mail.ru и fun-pet-проекты — лаунчер, метро, мультиплеерная игра."
+>
+  <Nav />
+  <main>
+    <Hero />
+    <Timeline />
+    <WorkCases />
+    <PetProjects />
+    <Contacts />
+  </main>
+</Layout>

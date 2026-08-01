@@ -1,0 +1,158 @@
+/* ============ Токены ============ */
+:root {
+  --bg: oklch(0.13 0.015 260);
+  --bg-raise: oklch(0.17 0.02 260);
+  --bg-glass: oklch(0.17 0.02 260 / 0.6);
+  --text: oklch(0.93 0.01 260);
+  --text-dim: oklch(0.68 0.015 260);
+  --accent: oklch(0.78 0.16 195);
+  --accent-warm: oklch(0.75 0.15 55);
+  --line: color-mix(in oklch, var(--text) 12%, transparent);
+
+  --font-sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'Cascadia Code', Consolas, monospace;
+
+  --space: clamp(2.8rem, 6vh, 4.5rem);
+  --radius: 14px;
+  --container: min(1120px, 92vw);
+}
+
+/* ============ Базовое ============ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.0625rem);
+  line-height: 1.55;
+  overflow-x: clip;
+}
+
+h1, h2, h3 {
+  line-height: 1.15;
+  text-wrap: balance;
+  margin: 0;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+}
+
+p { margin: 0; max-width: 68ch; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+img { max-width: 100%; height: auto; display: block; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+::selection { background: color-mix(in oklch, var(--accent) 35%, transparent); }
+
+.container { width: var(--container); margin-inline: auto; }
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  letter-spacing: 0.02em;
+}
+
+/* Секционный ярлык: // 01 — прокачка */
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--accent);
+  margin-bottom: 0.8rem;
+}
+
+section { padding-block: calc(var(--space) / 2); }
+
+.section-title {
+  font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+  margin-bottom: 0.3em;
+}
+
+.section-lead {
+  color: var(--text-dim);
+  max-width: 62ch;
+  margin-bottom: 1.6rem;
+}
+
+/* ============ Scroll-reveal (прогрессивно) ============ */
+/* Контент виден всегда; анимация — только там, где поддерживается */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 45%;
+    }
+    @keyframes reveal-in {
+      from { opacity: 0; transform: translateY(28px); }
+      to { opacity: 1; transform: none; }
+    }
+  }
+}
+
+/* ============ Чипы (ачивки, стек) ============ */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.28em 0.75em;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklch, var(--accent) 35%, transparent);
+  background: color-mix(in oklch, var(--accent) 8%, transparent);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text);
+  white-space: nowrap;
+}
+.chip.rare {
+  border-color: color-mix(in oklch, var(--accent-warm) 45%, transparent);
+  background: color-mix(in oklch, var(--accent-warm) 9%, transparent);
+}
+
+/* ============ Кнопки ============ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.7em 1.4em;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--bg-raise);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.btn:hover {
+  text-decoration: none;
+  border-color: color-mix(in oklch, var(--accent) 60%, transparent);
+  box-shadow: 0 0 24px color-mix(in oklch, var(--accent) 25%, transparent);
+  transform: translateY(-1px);
+}
+.btn-accent {
+  background: color-mix(in oklch, var(--accent) 18%, var(--bg-raise));
+  border-color: color-mix(in oklch, var(--accent) 45%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1510"/>
+      <stop offset="1" stop-color="#12241a"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <g opacity="0.1" stroke="#7be04a" stroke-width="1">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800 M0 450 H800"/>
+    <path d="M50 0 V500 M100 0 V500 M150 0 V500 M200 0 V500 M250 0 V500 M300 0 V500 M350 0 V500 M400 0 V500 M450 0 V500 M500 0 V500 M550 0 V500 M600 0 V500 M650 0 V500 M700 0 V500 M750 0 V500"/>
+  </g>
+  <!-- территория игрока -->
+  <path d="M150 150 H450 V350 H150 Z" fill="#7be04a" opacity="0.18"/>
+  <path d="M150 150 H450 V350 H150 Z" fill="none" stroke="#7be04a" stroke-width="3" opacity="0.5"/>
+  <!-- территория соперника -->
+  <path d="M500 100 H700 V250 H500 Z" fill="#e0524a" opacity="0.14"/>
+  <!-- след змейки, замыкающей петлю -->
+  <path d="M450 250 H600 V400 H300 V350" fill="none" stroke="#7be04a" stroke-width="8" stroke-linecap="round" stroke-dasharray="2 16"/>
+  <!-- змейка -->
+  <g fill="#7be04a">
+    <rect x="284" y="334" width="32" height="32" rx="8"/>
+    <rect x="284" y="370" width="28" height="28" rx="7" opacity="0.8"/>
+    <rect x="286" y="402" width="24" height="24" rx="6" opacity="0.6"/>
+  </g>
+  <circle cx="292" cy="342" r="4" fill="#0d1510"/>
+  <circle cx="306" cy="342" r="4" fill="#0d1510"/>
+  <text x="150" y="90" font-family="Consolas, monospace" font-size="22" fill="#7be04a">snakes — захват территории</text>
+  <text x="150" y="465" font-family="Consolas, monospace" font-size="16" fill="#5f7a63">16 игроков · боты · бинарный протокол</text>
+</svg>

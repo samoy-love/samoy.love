@@ -1,0 +1,110 @@
+---
+import work from '../data/work.json';
+---
+
+<section id="work" class="container">
+  <p class="section-label">// 02 — основной квест · Почта Mail.ru</p>
+  <h2 class="section-title">Рабочие проекты</h2>
+  <p class="section-lead">Два продукта, два арка роста: на первом — от стажёра до senior, на втором — от senior до руководителя. Скриншоты и метрики появятся по мере согласования — без нарушения NDA.</p>
+
+  <div class="cases">
+    {work.map((c) => (
+      <article class="case reveal">
+        {c.screen && (
+          <div class="shot">
+            <img src={c.screen} alt={`Скриншот: ${c.title}`} width="800" height="500" loading="lazy" />
+          </div>
+        )}
+        <div class="body">
+          <p class="mono arc">{c.arc}</p>
+          <h3>{c.title}</h3>
+          <p class="role">{c.role}</p>
+          <p class="text">{c.text}</p>
+          <ul class="results" role="list">
+            {c.results.map((r) => <li>{r}</li>)}
+          </ul>
+          <ul class="stack" role="list">
+            {c.stack.map((s) => <li class="chip">{s}</li>)}
+          </ul>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .cases {
+    display: grid;
+    gap: 1.2rem;
+    margin-top: 0.4rem;
+  }
+  @media (min-width: 820px) {
+    .cases { grid-template-columns: 1fr 1fr; align-items: stretch; }
+  }
+
+  .case {
+    display: grid;
+    gap: 0.55rem;
+    align-content: start;
+    padding: 1.3rem 1.4rem;
+    border: 1px solid var(--line);
+    border-radius: calc(var(--radius) + 6px);
+    background:
+      radial-gradient(30rem 14rem at 100% 0%, color-mix(in oklch, var(--accent) 5%, transparent), transparent 60%),
+      var(--bg-raise);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .case:hover {
+    border-color: color-mix(in oklch, var(--accent) 35%, transparent);
+    box-shadow: 0 8px 32px color-mix(in oklch, var(--accent) 10%, transparent);
+  }
+
+  .shot {
+    border-radius: var(--radius);
+    overflow: clip;
+    border: 1px solid var(--line);
+  }
+  .shot img { width: 100%; height: auto; }
+
+  .arc {
+    display: inline-block;
+    color: var(--accent);
+    font-size: 0.75rem;
+    padding: 0.2em 0.8em;
+    border: 1px solid color-mix(in oklch, var(--accent) 40%, transparent);
+    border-radius: 999px;
+    background: color-mix(in oklch, var(--accent) 8%, transparent);
+    justify-self: start;
+  }
+  h3 { font-size: 1.3rem; }
+  .role { color: var(--accent-warm); font-weight: 600; font-size: 0.92rem; }
+  .text { color: var(--text-dim); font-size: 0.95rem; }
+
+  .results {
+    margin: 0.3rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.3rem;
+  }
+  .results li {
+    position: relative;
+    padding-left: 1.2rem;
+    font-size: 0.92rem;
+  }
+  .results li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  .stack {
+    list-style: none;
+    padding: 0;
+    margin: 0.3rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+</style>

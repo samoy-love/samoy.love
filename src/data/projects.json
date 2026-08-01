@@ -1,0 +1,47 @@
+[
+  {
+    "slug": "chillhub",
+    "title": "ChillHub",
+    "tagline": "Лаунчер игр для Windows: дифф-обновления и «Обновить → Играть»",
+    "accent": "oklch(0.78 0.16 195)",
+    "stack": ["Go", "nginx", "WPF", "Blake3"],
+    "facts": [
+      "Обновления по диффу — качаются только изменённые файлы",
+      "Хеш-контроль целостности: Blake3 / SHA-256",
+      "Админка: ZIP → мгновенная публикация версии"
+    ],
+    "links": { "demo": "https://launcher.samoy.love", "demoLabel": "Сайт →", "repo": "" },
+    "cover": "/covers/chillhub.svg",
+    "order": 1
+  },
+  {
+    "slug": "metro",
+    "title": "Hello Kitty Метро",
+    "tagline": "Офлайн-PWA со схемой московского метро на Canvas",
+    "accent": "oklch(0.78 0.17 350)",
+    "stack": ["React 19", "TypeScript", "Canvas 2D", "Go"],
+    "facts": [
+      "Полностью офлайн: маршруты считаются на клиенте",
+      "Собственный Go-решатель октолинейного layout",
+      "Ориентир качества схемы — Яндекс.Метро"
+    ],
+    "links": { "demo": "https://metro.samoy.love", "demoLabel": "Открыть →", "repo": "" },
+    "cover": "/covers/metro.svg",
+    "order": 2
+  },
+  {
+    "slug": "snakes",
+    "title": "Snakes",
+    "tagline": "Мультиплеерный захват территории в браузере",
+    "accent": "oklch(0.85 0.2 130)",
+    "stack": ["Go", "WebSocket", "Canvas 2D", "Docker"],
+    "facts": [
+      "До 16 игроков + боты с полноценным ИИ",
+      "Бинарный протокол: 19 типов событий",
+      "Матчи по 5 минут, прогрессия, косметика, ачивки"
+    ],
+    "links": { "demo": "https://snakes.samoy.love", "demoLabel": "Играть →", "repo": "" },
+    "cover": "/covers/snakes.svg",
+    "order": 3
+  }
+]
