@@ -128,10 +128,11 @@ export function initHeroScene(canvas: HTMLCanvasElement): boolean {
   // Пауза вне вьюпорта и при скрытой вкладке
   let visible = true;
   let raf = 0;
-  new IntersectionObserver(([entry]) => {
+  const io = new IntersectionObserver(([entry]) => {
     visible = !!entry?.isIntersecting;
     if (visible && !raf) raf = requestAnimationFrame(loop);
-  }).observe(canvas);
+  });
+  io.observe(canvas);
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden && visible && !raf) raf = requestAnimationFrame(loop);
   });
@@ -141,6 +142,7 @@ export function initHeroScene(canvas: HTMLCanvasElement): boolean {
     cancelAnimationFrame(raf);
     raf = 0;
     ro.disconnect();
+    io.disconnect();
     canvas.style.display = 'none'; // остаётся CSS-фолбэк
   });
 
