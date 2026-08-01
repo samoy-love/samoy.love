@@ -1,0 +1,121 @@
+---
+import projects from '../data/projects.json';
+const sorted = [...projects].sort((a, b) => a.order - b.order);
+---
+
+<section id="pet" class="container">
+  <p class="section-label">// 03 — сайд-квесты · делаю для души</p>
+  <h2 class="section-title">Pet-проекты</h2>
+  <p class="section-lead">Три проекта — три жанра: десктопный лаунчер, офлайн-карта, мультиплеерная игра. Всё в проде, всё своими руками — от протокола до пикселя.</p>
+
+  <div class="grid">
+    {sorted.map((p) => (
+      <article class="card reveal" data-tilt style={`--project-accent: ${p.accent}`}>
+        <a class="cover-link" href={`/projects/${p.slug}/`} aria-label={`${p.title} — подробнее`}>
+          <img src={p.cover} alt={`Обложка: ${p.title}`} width="800" height="500" loading="lazy" />
+        </a>
+        <div class="body">
+          <h3><a href={`/projects/${p.slug}/`}>{p.title}</a></h3>
+          <p class="tagline">{p.tagline}</p>
+          <ul class="facts" role="list">
+            {p.facts.map((f) => <li>{f}</li>)}
+          </ul>
+          <ul class="stack" role="list">
+            {p.stack.map((s) => <li class="chip">{s}</li>)}
+          </ul>
+          <div class="links">
+            {p.links.demo && <a class="go demo" href={p.links.demo} rel="noopener">{p.links.demoLabel ?? 'Открыть →'}</a>}
+            <a class="go" href={`/projects/${p.slug}/`}>Подробнее →</a>
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<script>
+  import { initTilt } from '../islands/card-tilt';
+  initTilt();
+</script>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(310px, 100%), 1fr));
+    gap: 1rem;
+    margin-top: 0.4rem;
+  }
+
+  .card {
+    border: 1px solid var(--line);
+    border-radius: calc(var(--radius) + 4px);
+    background: var(--bg-raise);
+    overflow: clip;
+    transition: transform 0.25s ease, border-color 0.25s, box-shadow 0.25s;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+  .card:hover {
+    border-color: color-mix(in oklch, var(--project-accent) 55%, transparent);
+    box-shadow: 0 12px 40px color-mix(in oklch, var(--project-accent) 20%, transparent);
+  }
+
+  .cover-link { display: block; }
+  .cover-link img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid var(--line);
+    transition: scale 0.35s ease;
+  }
+  .card:hover .cover-link img { scale: 1.03; }
+
+  .body { padding: 1rem 1.15rem 1.15rem; }
+  h3 { font-size: 1.25rem; }
+  h3 a { color: var(--text); }
+  h3 a:hover { color: var(--project-accent, var(--accent)); text-decoration: none; }
+  .tagline { color: var(--text-dim); margin-top: 0.35rem; font-size: 0.95rem; }
+
+  .facts {
+    margin: 0.9rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.3rem;
+  }
+  .facts li {
+    position: relative;
+    padding-left: 1.2rem;
+    font-size: 0.88rem;
+    color: var(--text-dim);
+  }
+  .facts li::before {
+    content: '+';
+    position: absolute;
+    left: 0;
+    color: var(--project-accent, var(--accent));
+    font-family: var(--font-mono);
+  }
+
+  .stack {
+    list-style: none;
+    padding: 0;
+    margin: 0.9rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .links {
+    display: flex;
+    gap: 1.1rem;
+    margin-top: 0.9rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--line);
+  }
+  .go {
+    font-size: 0.88rem;
+    font-weight: 620;
+    color: var(--project-accent, var(--accent));
+  }
+  .go:hover { text-decoration: none; filter: brightness(1.2); }
+</style>

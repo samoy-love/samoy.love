@@ -1,0 +1,50 @@
+---
+const links = [
+  { href: '#path', label: 'Путь' },
+  { href: '#work', label: 'Работа' },
+  { href: '#pet', label: 'Pet-проекты' },
+  { href: '#contact', label: 'Контакты' },
+];
+---
+
+<nav class="site-nav" aria-label="Основная навигация">
+  <a class="brand mono" href="/">~/samoy.love</a>
+  <div class="links">
+    {links.map((l) => <a href={l.href}>{l.label}</a>)}
+  </div>
+</nav>
+
+<style>
+  .site-nav {
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.7rem clamp(1rem, 4vw, 2.5rem);
+    padding-top: calc(0.7rem + env(safe-area-inset-top));
+    background: color-mix(in oklch, var(--bg) 72%, transparent);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .brand { color: var(--accent); font-weight: 600; }
+  .brand:hover { text-decoration: none; }
+  .links { display: flex; gap: clamp(0.9rem, 3vw, 2rem); }
+  .links a {
+    color: var(--text-dim);
+    font-size: 0.92rem;
+    font-weight: 550;
+    transition: color 0.2s;
+  }
+  .links a:hover { color: var(--text); text-decoration: none; }
+
+  @media (max-width: 520px) {
+    .brand { display: none; }
+    .site-nav { justify-content: center; }
+    .links { gap: 1.1rem; }
+    .links a { font-size: 0.88rem; white-space: nowrap; }
+  }
+</style>

@@ -1,0 +1,57 @@
+---
+import profile from '../data/profile.json';
+const { contacts } = profile;
+---
+
+<section id="contact" class="container">
+  <p class="section-label">// 04 — новый квест?</p>
+  <h2 class="section-title">Давайте поговорим</h2>
+  <p class="lead">Про команды, Go и продукты — или просто зайдите в <a href="https://snakes.samoy.love" rel="noopener">Snakes</a> и попробуйте меня обыграть.</p>
+
+  <div class="row">
+    <button class="btn btn-accent" id="copy-email" data-email={contacts.email}>
+      <span class="mono">{contacts.email}</span>
+      <span aria-hidden="true">⧉</span>
+    </button>
+    <a class="btn" href={contacts.telegram} rel="noopener">Telegram</a>
+    <a class="btn" href={contacts.github} rel="noopener">GitHub</a>
+  </div>
+  <p class="toast mono" id="copy-toast" role="status" aria-live="polite"></p>
+</section>
+
+<footer class="container mono">
+  © 2026 · Astro 7 · без трекеров и куки-баннеров
+</footer>
+
+<script>
+  const btn = document.getElementById('copy-email') as HTMLButtonElement;
+  const toast = document.getElementById('copy-toast')!;
+  btn?.addEventListener('click', async () => {
+    const email = btn.dataset.email!;
+    try {
+      await navigator.clipboard.writeText(email);
+      toast.textContent = '✓ скопировано в буфер';
+    } catch {
+      toast.textContent = email;
+    }
+    setTimeout(() => (toast.textContent = ''), 2500);
+  });
+</script>
+
+<style>
+  .lead { color: var(--text-dim); margin-bottom: 1.6rem; }
+  .row { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+  .toast {
+    min-height: 1.4em;
+    margin-top: 0.9rem;
+    color: var(--accent);
+    font-size: 0.85rem;
+  }
+  footer {
+    padding-block: 2.5rem calc(2.5rem + env(safe-area-inset-bottom));
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--line);
+    margin-top: var(--space);
+  }
+</style>

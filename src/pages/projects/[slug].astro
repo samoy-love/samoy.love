@@ -1,0 +1,103 @@
+---
+import { getEntry, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import projects from '../../data/projects.json';
+
+export function getStaticPaths() {
+  return projects.map((p) => ({ params: { slug: p.slug }, props: { project: p } }));
+}
+
+const { project } = Astro.props;
+const entry = await getEntry('projects', project.slug);
+const Content = entry ? (await render(entry)).Content : null;
+---
+
+<Layout title={`${project.title} — pet-проект Алексея Самойлова`} description={project.tagline}>
+  <Nav />
+  <main class="container" style={`--project-accent: ${project.accent}`}>
+    <p class="mono back"><a href="/#pet">← все pet-проекты</a></p>
+
+    <header class="head">
+      <img class="cover" src={project.cover} alt={`Обложка: ${project.title}`} width="800" height="500" />
+      <div>
+        <p class="section-label">// сайд-квест</p>
+        <h1>{project.title}</h1>
+        <p class="tagline">{project.tagline}</p>
+        <ul class="stack" role="list">
+          {project.stack.map((s) => <li class="chip">{s}</li>)}
+        </ul>
+        <p class="links">
+          {project.links.demo && (
+            <a class="btn btn-accent" href={project.links.demo} rel="noopener">{project.links.demoLabel ?? 'Открыть →'}</a>
+          )}
+          {project.links.repo && <a class="btn" href={project.links.repo} rel="noopener">Репозиторий</a>}
+        </p>
+      </div>
+    </header>
+
+    <article class="prose">
+      {Content ? <Content /> : <p>Описание скоро появится.</p>}
+    </article>
+  </main>
+</Layout>
+
+<style>
+  main { padding-top: 6rem; padding-bottom: var(--space); }
+  .back { margin-bottom: 2rem; }
+  .back a { color: var(--text-dim); }
+  .back a:hover { color: var(--accent); }
+
+  .head {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+    margin-bottom: 3rem;
+  }
+  @media (min-width: 760px) {
+    .head { grid-template-columns: 1fr 1fr; }
+  }
+
+  .cover {
+    border-radius: calc(var(--radius) + 4px);
+    border: 1px solid color-mix(in oklch, var(--project-accent) 40%, transparent);
+    box-shadow: 0 18px 60px color-mix(in oklch, var(--project-accent) 18%, transparent);
+  }
+
+  h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); }
+  .tagline { color: var(--text-dim); margin-top: 0.7rem; font-size: 1.1rem; }
+
+  .stack {
+    list-style: none;
+    padding: 0;
+    margin: 1.2rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .links { margin-top: 1.6rem; }
+
+  .prose :global(h2) {
+    font-size: 1.5rem;
+    margin-top: 2.2rem;
+    margin-bottom: 0.7rem;
+    color: var(--text);
+  }
+  .prose :global(h2)::before {
+    content: '## ';
+    color: var(--project-accent, var(--accent));
+    font-family: var(--font-mono);
+    font-size: 0.8em;
+  }
+  .prose :global(p) { color: var(--text-dim); margin-bottom: 1rem; }
+  .prose :global(li) { color: var(--text-dim); margin-bottom: 0.4rem; }
+  .prose :global(strong) { color: var(--text); }
+  .prose :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background: var(--bg-raise);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 0.1em 0.4em;
+  }
+</style>

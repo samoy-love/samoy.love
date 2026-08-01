@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1a1018"/>
+      <stop offset="1" stop-color="#2a1626"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <!-- октолинейные линии метро -->
+  <g fill="none" stroke-width="10" stroke-linecap="round">
+    <path d="M80 400 H280 L400 280 V150" stroke="#e84c6f"/>
+    <path d="M120 80 L300 80 L440 220 H660" stroke="#41b6e6" opacity="0.9"/>
+    <path d="M700 420 L560 420 L440 300" stroke="#8dc63f" opacity="0.9"/>
+    <circle cx="400" cy="250" r="150" stroke="#a05e2c" opacity="0.55" stroke-width="8"/>
+  </g>
+  <!-- станции -->
+  <g fill="#fff" stroke="#1a1018" stroke-width="4">
+    <circle cx="280" cy="400" r="11"/>
+    <circle cx="400" cy="280" r="11"/>
+    <circle cx="300" cy="80" r="11"/>
+    <circle cx="440" cy="220" r="14" fill="#ffd7e5"/>
+    <circle cx="560" cy="420" r="11"/>
+  </g>
+  <!-- бантик Hello Kitty на хабе -->
+  <g transform="translate(440 190)">
+    <circle cx="0" cy="0" r="7" fill="#e84c6f"/>
+    <path d="M-6 -3 C-22 -14 -26 8 -7 4 Z" fill="#e84c6f"/>
+    <path d="M6 -3 C22 -14 26 8 7 4 Z" fill="#e84c6f"/>
+  </g>
+  <text x="80" y="470" font-family="Consolas, monospace" font-size="16" fill="#a37d92">offline pwa · canvas · маршруты на клиенте</text>
+  <text x="80" y="50" font-family="Consolas, monospace" font-size="22" fill="#ff9dbb">hello kitty метро</text>
+</svg>

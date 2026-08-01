@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+---
+
+<Layout title="404 — страница не найдена" description="Такой страницы нет.">
+  <Nav />
+  <main class="container">
+    <p class="mono code">HTTP 404 · quest not found</p>
+    <h1>Здесь ничего нет</h1>
+    <p class="text">Страница не найдена — возможно, ссылка устарела. Зато главная точно на месте.</p>
+    <p><a class="btn btn-accent" href="/">← на главную</a></p>
+  </main>
+</Layout>
+
+<style>
+  main {
+    min-height: 100svh;
+    display: grid;
+    place-content: center;
+    gap: 1rem;
+    text-align: center;
+    justify-items: center;
+  }
+  .code { color: var(--accent); }
+  h1 { font-size: clamp(2rem, 6vw, 3.2rem); }
+  .text { color: var(--text-dim); }
+</style>

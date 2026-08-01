@@ -1,0 +1,14 @@
+[
+  { "id": "first-code", "icon": "⌨️", "title": "Hello, World", "note": "Первая программа — и точка невозврата", "rarity": "common" },
+  { "id": "degree", "icon": "🎓", "title": "Выпускник", "note": "Профильное высшее", "rarity": "common" },
+  { "id": "first-freelance", "icon": "💼", "title": "Первый заказ", "note": "Первые деньги за код", "rarity": "common" },
+  { "id": "go-lang", "icon": "🐹", "title": "Гофер", "note": "Go — основной язык", "rarity": "common" },
+  { "id": "highload", "icon": "⚡", "title": "Highload", "note": "Продукт на десятки миллионов пользователей", "rarity": "rare" },
+  { "id": "mentor", "icon": "🌱", "title": "Ментор", "note": "Растил джунов до уверенных инженеров", "rarity": "rare" },
+  { "id": "architecture", "icon": "📐", "title": "Архитектор", "note": "Системы с нуля до прода", "rarity": "common" },
+  { "id": "teamlead", "icon": "👥", "title": "Лидер ×10", "note": "Руковожу командой с марта 2025", "rarity": "rare" },
+  { "id": "mail-scale", "icon": "📬", "title": "Масштаб Почты", "note": "Десятки миллионов пользователей", "rarity": "rare" },
+  { "id": "shipped-launcher", "icon": "🚀", "title": "Релиз ChillHub", "note": "Игровой лаунчер в проде", "rarity": "common" },
+  { "id": "shipped-metro", "icon": "🚇", "title": "Схема метро", "note": "Офлайн-PWA со своим layout-движком", "rarity": "common" },
+  { "id": "shipped-snakes", "icon": "🐍", "title": "Мультиплеер", "note": "Своя игровая арена в проде", "rarity": "rare" }
+]
