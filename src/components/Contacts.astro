@@ -9,9 +9,11 @@ const { contacts } = profile;
   <p class="lead">Про команды, Go и продукты — или просто зайдите в <a href="https://snakes.samoy.love" rel="noopener">Snakes</a> и попробуйте меня обыграть.</p>
 
   <div class="row">
-    <button class="btn btn-accent" id="copy-email" data-email={contacts.email}>
-      <span class="mono">{contacts.email}</span>
-      <span aria-hidden="true">⧉</span>
+    <a class="btn btn-accent mono" href={`mailto:${contacts.email}`}>{contacts.email}</a>
+    <!-- Копирование — прогрессивное улучшение: кнопка появляется только если
+         скрипт отработал, иначе остаётся рабочая mailto-ссылка выше. -->
+    <button class="btn" id="copy-email" data-email={contacts.email} hidden>
+      <span aria-hidden="true">⧉</span> Скопировать
     </button>
     <a class="btn" href={contacts.telegram} rel="noopener">Telegram</a>
     <a class="btn" href={contacts.github} rel="noopener">GitHub</a>
@@ -24,8 +26,9 @@ const { contacts } = profile;
 </footer>
 
 <script>
-  const btn = document.getElementById('copy-email') as HTMLButtonElement;
+  const btn = document.getElementById('copy-email') as HTMLButtonElement | null;
   const toast = document.getElementById('copy-toast')!;
+  if (btn && navigator.clipboard) btn.hidden = false;
   btn?.addEventListener('click', async () => {
     const email = btn.dataset.email!;
     try {
