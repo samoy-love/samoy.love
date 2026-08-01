@@ -15,7 +15,7 @@ const Content = entry ? (await render(entry)).Content : null;
 
 <Layout title={`${project.title} — pet-проект Алексея Самойлова`} description={project.tagline}>
   <Nav />
-  <main class="container" style={`--project-accent: ${project.accent}`}>
+  <main id="main" class="container" style={`--project-accent: ${project.accent}`}>
     <p class="mono back"><a href="/#pet">← все pet-проекты</a></p>
 
     <header class="head">

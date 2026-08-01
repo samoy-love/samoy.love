@@ -1,15 +1,14 @@
 // 3D-фон hero: поле частиц с глубиной и туманом (OGL).
-// Уровни: Full (WebGL) → Lite (CSS-градиент, см. Hero.astro) → Static (reduced motion).
+//
+// Модуль грузится динамически и только на Full-уровне — проверки устройства и
+// prefers-reduced-motion живут в вызывающем коде (Hero.astro), чтобы слабые
+// устройства вообще не скачивали эти килобайты.
 
 import { Renderer, Camera, Transform, Geometry, Program, Mesh } from 'ogl';
 
-const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const nav = navigator as Navigator & { deviceMemory?: number };
-const weak =
-  (nav.hardwareConcurrency ?? 8) <= 4 || (nav.deviceMemory ?? 8) <= 4;
-
 export function initHeroScene(canvas: HTMLCanvasElement): boolean {
-  if (reduced || weak) return false;
+  const host = canvas.parentElement;
+  if (!host) return false;
 
   const isMobile = matchMedia('(pointer: coarse)').matches;
   const COUNT = isMobile ? 1200 : 2600;
@@ -94,18 +93,28 @@ export function initHeroScene(canvas: HTMLCanvasElement): boolean {
     transparent: true,
     depthTest: false,
   });
-  gl.blendFunc(gl.SRC_ALPHA, gl.ONE); // аддитивное свечение
+  // Аддитивное свечение. Именно через API OGL: сырой gl.blendFunc() библиотека
+  // перетирает своим кэшем состояния на каждом кадре, и блендинг остаётся выключен.
+  program.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
 
   const mesh = new Mesh(gl, { mode: gl.POINTS, geometry, program });
   mesh.setParent(scene);
 
-  function resize() {
-    const { clientWidth: w, clientHeight: h } = canvas.parentElement!;
+  // Размер. ResizeObserver, а не одноразовый замер: на первом кадре родитель
+  // может иметь нулевую ширину, а renderer.setSize() прописывает канвасу
+  // инлайновые width/height и перекрывает CSS `width: 100%` — то есть нулевой
+  // размер залипал бы навсегда, до случайного события resize.
+  let sized = false;
+  const ro = new ResizeObserver(() => {
+    const w = host.clientWidth;
+    const h = host.clientHeight;
+    if (!w || !h) return;
     renderer.setSize(w, h);
     camera.perspective({ aspect: w / h });
-  }
-  resize();
-  addEventListener('resize', resize);
+    sized = true;
+    if (visible && !raf) raf = requestAnimationFrame(loop);
+  });
+  ro.observe(host);
 
   // Параллакс от курсора (только desktop)
   let targetX = 0, targetY = 0, curX = 0, curY = 0;
@@ -131,13 +140,14 @@ export function initHeroScene(canvas: HTMLCanvasElement): boolean {
     e.preventDefault();
     cancelAnimationFrame(raf);
     raf = 0;
+    ro.disconnect();
     canvas.style.display = 'none'; // остаётся CSS-фолбэк
   });
 
   const t0 = performance.now();
   function loop(now: number) {
     raf = 0;
-    if (!visible || document.hidden) return;
+    if (!visible || document.hidden || !sized) return;
     program.uniforms.uTime!.value = (now - t0) / 1000;
 
     curX += (targetX - curX) * 0.04;
