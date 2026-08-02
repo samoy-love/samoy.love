@@ -14,7 +14,8 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "e2e": "playwright test",
-    "e2e:prod": "playwright test --config=playwright.prod.config.ts"
+    "e2e:prod": "playwright test --config=playwright.prod.config.ts",
+    "check:no-inline-scripts": "node scripts/check-no-inline-scripts.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
