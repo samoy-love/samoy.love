@@ -95,4 +95,42 @@ test.describe('главная страница', () => {
     await expect(page).toHaveURL(/\/projects\/chillhub\/$/);
     await expect(page.getByRole('heading', { level: 1 })).toContainText('ChillHub');
   });
+
+  test('после перехода и возврата сцена оживает заново', async ({ page }) => {
+    // Ровно то, что ломает ClientRouter: он подменяет DOM без перезагрузки,
+    // модули больше не выполняются, и без astro:page-load главная вернулась бы
+    // с мёртвым канвасом. Плюс проверяем, что старая сцена отпустила контекст,
+    // а не осталась рисовать в выброшенный узел.
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, 'hardwareConcurrency', { get: () => 8 });
+      Object.defineProperty(navigator, 'deviceMemory', { get: () => 8 });
+      const w = window as unknown as { __live: number };
+      w.__live = 0;
+      const original = HTMLCanvasElement.prototype.getContext;
+      HTMLCanvasElement.prototype.getContext = function (type: string, ...rest: unknown[]) {
+        if (this.id === 'hero-canvas' && type.startsWith('webgl')) w.__live += 1;
+        // @ts-expect-error пробрасываем аргументы как есть
+        return original.call(this, type, ...rest);
+      };
+    });
+
+    await page.goto('/');
+    await expect(page.locator('#hero-canvas')).toBeAttached();
+
+    await page.locator('#pet article.card').first().getByRole('link', { name: 'Подробнее →' }).click();
+    await expect(page).toHaveURL(/\/projects\/chillhub\/$/);
+    await expect(page.locator('#hero-canvas')).toHaveCount(0);
+
+    await page.getByRole('link', { name: '← все pet-проекты' }).click();
+    await expect(page).toHaveURL(/\/#pet$|\/$/);
+
+    const canvas = page.locator('#hero-canvas');
+    await expect(canvas).toBeAttached();
+    await expect
+      .poll(async () => (await canvas.boundingBox())?.width ?? 0, { timeout: 5000 })
+      .toBeGreaterThan(200);
+
+    // Контекст создан ровно дважды — по разу на каждый заход на главную.
+    expect(await page.evaluate(() => (window as unknown as { __live: number }).__live)).toBe(2);
+  });
 });

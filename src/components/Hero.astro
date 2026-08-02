@@ -79,22 +79,37 @@ const featured = profile.featuredAchievements
 <script>
   // Уровень эффектов решается ДО загрузки модуля: на Lite/Static устройства
   // ~15 КБ WebGL-кода даже не скачиваются. Фолбэк — CSS-фон в .scene.
-  const canvas = document.getElementById('hero-canvas') as HTMLCanvasElement | null;
   const nav = navigator as Navigator & { deviceMemory?: number };
   const weak = (nav.hardwareConcurrency ?? 8) <= 4 || (nav.deviceMemory ?? 8) <= 4;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (canvas) {
+  let dispose: (() => void) | null = null;
+
+  // astro:page-load вместо прямого вызова: с ClientRouter этот модуль
+  // выполняется один раз, а канвас после каждой навигации новый.
+  document.addEventListener('astro:page-load', () => {
+    const canvas = document.getElementById('hero-canvas') as HTMLCanvasElement | null;
+    if (!canvas) return; // не главная страница
+
     if (reduced || weak) {
       canvas.remove();
-    } else {
-      import('../islands/hero-scene')
-        .then(({ initHeroScene }) => {
-          if (!initHeroScene(canvas)) canvas.remove();
-        })
-        .catch(() => canvas.remove());
+      return;
     }
-  }
+
+    import('../islands/hero-scene')
+      .then(({ initHeroScene }) => {
+        dispose = initHeroScene(canvas);
+        if (!dispose) canvas.remove();
+      })
+      .catch(() => canvas.remove());
+  });
+
+  // Уходя со страницы, гасим сцену: иначе rAF продолжает рисовать в
+  // выброшенный канвас, а каждый визит на главную плодит новый контекст.
+  document.addEventListener('astro:before-swap', () => {
+    dispose?.();
+    dispose = null;
+  });
 </script>
 
 <style>

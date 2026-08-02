@@ -12,7 +12,14 @@ const sorted = [...projects].sort((a, b) => a.order - b.order);
     {sorted.map((p) => (
       <article class="card reveal" data-tilt style={`--project-accent: ${p.accent}`}>
         <a class="cover-link" href={`/projects/${p.slug}/`} aria-label={`${p.title} — подробнее`}>
-          <img src={p.cover} alt={`Обложка: ${p.title}`} width="800" height="500" loading="lazy" />
+          <img
+            src={p.cover}
+            alt={`Обложка: ${p.title}`}
+            width="800"
+            height="500"
+            loading="lazy"
+            transition:name={`cover-${p.slug}`}
+          />
         </a>
         <div class="body">
           <h3><a href={`/projects/${p.slug}/`}>{p.title}</a></h3>
@@ -35,7 +42,11 @@ const sorted = [...projects].sort((a, b) => a.order - b.order);
 
 <script>
   import { initTilt } from '../islands/card-tilt';
-  initTilt();
+
+  // astro:page-load, а не голый вызов: с ClientRouter модуль выполняется
+  // один раз за сессию, и после возврата на главную карточки были бы
+  // новыми, а обработчики — навешанными на выброшенные узлы.
+  document.addEventListener('astro:page-load', () => initTilt());
 </script>
 
 <style>
