@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 620" width="1400" height="620" role="img" aria-label="Screenshot placeholder">
+  <style>
+    .bg { fill: #17191c }
+    .fr { fill: none; stroke: #3a3f47; stroke-width: 2; stroke-dasharray: 10 8; rx: 14 }
+    .t  { fill: #e8eaed; font: 600 22px system-ui, sans-serif; text-anchor: middle }
+    .d  { fill: #8b9199; font: 15px system-ui, sans-serif; text-anchor: middle }
+  </style>
+  <rect class="bg" width="1400" height="620" rx="14"/>
+  <rect class="fr" x="10" y="10" width="1380" height="600"/>
+  <text x="700" y="288" class="t">Screenshot goes here · Здесь скриншот главной</text>
+  <text x="700" y="322" class="d">Shoot the hero with the 3D scene running and the timeline mid-scroll.</text>
+  <text x="700" y="348" class="d">Снимать hero с живой 3D-сценой и таймлайном в середине скролла:</text>
+  <text x="700" y="374" class="d">на статичном кадре не видно ни фона, ни рисующейся линии.</text>
+</svg>
