@@ -19,7 +19,14 @@ const Content = entry ? (await render(entry)).Content : null;
     <p class="mono back"><a href="/#pet">← все pet-проекты</a></p>
 
     <header class="head">
-      <img class="cover" src={project.cover} alt={`Обложка: ${project.title}`} width="800" height="500" />
+      <img
+        class="cover"
+        src={project.cover}
+        alt={`Обложка: ${project.title}`}
+        width="800"
+        height="500"
+        transition:name={`cover-${project.slug}`}
+      />
       <div>
         <p class="section-label">// сайд-квест</p>
         <h1>{project.title}</h1>
