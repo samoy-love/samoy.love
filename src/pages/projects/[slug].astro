@@ -38,7 +38,7 @@ const Content = entry ? (await render(entry)).Content : null;
           {project.links.demo && (
             <a class="btn btn-accent" href={project.links.demo} rel="noopener">{project.links.demoLabel ?? 'Открыть →'}</a>
           )}
-          {project.links.repo && <a class="btn" href={project.links.repo} rel="noopener">Репозиторий</a>}
+          {project.links.repo && <a class="btn" data-event="source_open" href={project.links.repo} rel="noopener">Репозиторий</a>}
         </p>
       </div>
     </header>
