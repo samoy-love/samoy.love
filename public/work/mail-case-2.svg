@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101426"/>
+      <stop offset="1" stop-color="#1a1f40"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <!-- дашборд с метриками -->
+  <rect x="80" y="70" width="640" height="360" rx="16" fill="#171d38" stroke="#2a3260"/>
+  <g>
+    <rect x="110" y="100" width="180" height="90" rx="12" fill="#1e2648"/>
+    <rect x="310" y="100" width="180" height="90" rx="12" fill="#1e2648"/>
+    <rect x="510" y="100" width="180" height="90" rx="12" fill="#1e2648"/>
+    <rect x="126" y="120" width="70" height="12" rx="6" fill="#39447c"/>
+    <rect x="126" y="146" width="110" height="22" rx="8" fill="#6f9ef5"/>
+    <rect x="326" y="120" width="70" height="12" rx="6" fill="#39447c"/>
+    <rect x="326" y="146" width="90" height="22" rx="8" fill="#8f7bf0"/>
+    <rect x="526" y="120" width="70" height="12" rx="6" fill="#39447c"/>
+    <rect x="526" y="146" width="100" height="22" rx="8" fill="#43c98f"/>
+  </g>
+  <!-- график -->
+  <polyline points="110,380 180,350 250,360 320,320 390,330 460,290 530,300 600,255 690,240"
+    fill="none" stroke="#6f9ef5" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="110,395 180,390 250,378 320,382 390,365 460,368 530,345 600,350 690,320"
+    fill="none" stroke="#43c98f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+  <text x="80" y="470" font-family="Consolas, monospace" font-size="15" fill="#5b64a0">скриншот кейса — плейсхолдер до согласования</text>
+</svg>
