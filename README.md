@@ -9,7 +9,10 @@
 [![CI](https://github.com/tr0llex/samoy.love/actions/workflows/ci.yml/badge.svg)](https://github.com/tr0llex/samoy.love/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/tr0llex/samoy.love/branch/main/graph/badge.svg)](https://codecov.io/gh/tr0llex/samoy.love)
 
-![Карточка персонажа samoy.love](public/og.png)
+<!-- Заглушка до реального скриншота: og-карточка, которую генерирует
+     scripts/make-og.mjs из данных профиля. Заменить на снимок главной —
+     одна строка. -->
+![samoy.love](public/og.png)
 
 > Домен читается как фамилия владельца — Самойлов.
 
