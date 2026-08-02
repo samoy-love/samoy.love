@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import '@fontsource-variable/inter';
 import '@fontsource-variable/jetbrains-mono';
 import '../styles/global.css';
@@ -63,6 +64,10 @@ const personLd = {
     <meta name="theme-color" content="#191c24" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script type="application/ld+json" set:html={JSON.stringify(personLd)} is:inline />
+    <!-- Переходы между страницами: обложка карточки «перелетает» в шапку
+         проекта. Скрипты после этого обязаны переинициализироваться по
+         astro:page-load — иначе при возврате на главную сцена мертва. -->
+    <ClientRouter />
   </head>
   <body>
     <a class="skip-link" href="#main">К основному содержимому</a>

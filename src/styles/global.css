@@ -170,6 +170,14 @@ section { padding-block: calc(var(--space) / 2); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+
+  /* Переходы между страницами тоже выключаем: ClientRouter анимирует
+     через ::view-transition-*, а это отдельная от обычных animation ветка. */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;

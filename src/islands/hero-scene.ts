@@ -6,9 +6,14 @@
 
 import { Renderer, Camera, Transform, Geometry, Program, Mesh } from 'ogl';
 
-export function initHeroScene(canvas: HTMLCanvasElement): boolean {
+/**
+ * Возвращает функцию остановки сцены — её обязан вызвать вызывающий код при
+ * уходе со страницы (ClientRouter меняет DOM, не перезагружая документ).
+ * null — сцена не поднялась, канвас можно убирать.
+ */
+export function initHeroScene(canvas: HTMLCanvasElement): (() => void) | null {
   const host = canvas.parentElement;
-  if (!host) return false;
+  if (!host) return null;
 
   const isMobile = matchMedia('(pointer: coarse)').matches;
   const COUNT = isMobile ? 1200 : 2600;
@@ -18,7 +23,7 @@ export function initHeroScene(canvas: HTMLCanvasElement): boolean {
   try {
     renderer = new Renderer({ canvas, dpr: DPR, alpha: true, antialias: false });
   } catch {
-    return false;
+    return null;
   }
   const gl = renderer.gl;
   gl.clearColor(0, 0, 0, 0);
@@ -118,12 +123,11 @@ export function initHeroScene(canvas: HTMLCanvasElement): boolean {
 
   // Параллакс от курсора (только desktop)
   let targetX = 0, targetY = 0, curX = 0, curY = 0;
-  if (!isMobile) {
-    addEventListener('pointermove', (e) => {
-      targetX = (e.clientX / innerWidth - 0.5) * 2;
-      targetY = (e.clientY / innerHeight - 0.5) * 2;
-    }, { passive: true });
-  }
+  const onPointerMove = (e: PointerEvent) => {
+    targetX = (e.clientX / innerWidth - 0.5) * 2;
+    targetY = (e.clientY / innerHeight - 0.5) * 2;
+  };
+  if (!isMobile) addEventListener('pointermove', onPointerMove, { passive: true });
 
   // Пауза вне вьюпорта и при скрытой вкладке
   let visible = true;
@@ -133,9 +137,10 @@ export function initHeroScene(canvas: HTMLCanvasElement): boolean {
     if (visible && !raf) raf = requestAnimationFrame(loop);
   });
   io.observe(canvas);
-  document.addEventListener('visibilitychange', () => {
+  const onVisibility = () => {
     if (!document.hidden && visible && !raf) raf = requestAnimationFrame(loop);
-  });
+  };
+  document.addEventListener('visibilitychange', onVisibility);
 
   canvas.addEventListener('webglcontextlost', (e) => {
     e.preventDefault();
@@ -163,5 +168,17 @@ export function initHeroScene(canvas: HTMLCanvasElement): boolean {
     raf = requestAnimationFrame(loop);
   }
   raf = requestAnimationFrame(loop);
-  return true;
+
+  return () => {
+    cancelAnimationFrame(raf);
+    raf = 0;
+    visible = false;
+    ro.disconnect();
+    io.disconnect();
+    removeEventListener('pointermove', onPointerMove);
+    document.removeEventListener('visibilitychange', onVisibility);
+    // Контекст отпускаем явно: без этого браузер держит его до сборки мусора,
+    // а лимит одновременных WebGL-контекстов невелик.
+    gl.getExtension('WEBGL_lose_context')?.loseContext();
+  };
 }

@@ -26,18 +26,24 @@ const { contacts } = profile;
 </footer>
 
 <script>
-  const btn = document.getElementById('copy-email') as HTMLButtonElement | null;
-  const toast = document.getElementById('copy-toast')!;
-  if (btn && navigator.clipboard) btn.hidden = false;
-  btn?.addEventListener('click', async () => {
-    const email = btn.dataset.email!;
-    try {
-      await navigator.clipboard.writeText(email);
-      toast.textContent = '✓ скопировано в буфер';
-    } catch {
-      toast.textContent = email;
-    }
-    setTimeout(() => (toast.textContent = ''), 2500);
+  // Переинициализация на каждой навигации: с ClientRouter узлы после
+  // перехода новые, а модуль больше не выполняется.
+  document.addEventListener('astro:page-load', () => {
+    const btn = document.getElementById('copy-email') as HTMLButtonElement | null;
+    const toast = document.getElementById('copy-toast');
+    if (!btn || !toast) return;
+
+    if (navigator.clipboard) btn.hidden = false;
+    btn.addEventListener('click', async () => {
+      const email = btn.dataset.email!;
+      try {
+        await navigator.clipboard.writeText(email);
+        toast.textContent = '✓ скопировано в буфер';
+      } catch {
+        toast.textContent = email;
+      }
+      setTimeout(() => (toast.textContent = ''), 2500);
+    });
   });
 </script>
 
