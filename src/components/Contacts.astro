@@ -9,20 +9,20 @@ const { contacts } = profile;
   <p class="lead">Про команды, Go и продукты — или просто зайдите в <a href="https://snakes.samoy.love" rel="noopener">Snakes</a> и попробуйте меня обыграть.</p>
 
   <div class="row">
-    <a class="btn btn-accent mono" href={`mailto:${contacts.email}`}>{contacts.email}</a>
+    <a class="btn btn-accent mono" data-event="contact_open" href={`mailto:${contacts.email}`}>{contacts.email}</a>
     <!-- Копирование — прогрессивное улучшение: кнопка появляется только если
          скрипт отработал, иначе остаётся рабочая mailto-ссылка выше. -->
     <button class="btn" id="copy-email" data-email={contacts.email} hidden>
       <span aria-hidden="true">⧉</span> Скопировать
     </button>
-    <a class="btn" href={contacts.telegram} rel="noopener">Telegram</a>
-    <a class="btn" href={contacts.github} rel="noopener">GitHub</a>
+    <a class="btn" data-event="contact_open" href={contacts.telegram} rel="noopener">Telegram</a>
+    <a class="btn" data-event="contact_open" href={contacts.github} rel="noopener">GitHub</a>
   </div>
   <p class="toast mono" id="copy-toast" role="status" aria-live="polite"></p>
 </section>
 
 <footer class="container mono">
-  © 2026 · Astro 7 · без трекеров и куки-баннеров
+  © 2026 · Astro 7 · без cookie, чужих трекеров и куки-баннеров
 </footer>
 
 <script>
