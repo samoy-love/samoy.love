@@ -1,7 +1,7 @@
 # samoy.love
 
-[![CI](https://github.com/tr0llex/Samoy.love-Homepage/actions/workflows/ci.yml/badge.svg)](https://github.com/tr0llex/Samoy.love-Homepage/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/tr0llex/Samoy.love-Homepage/branch/main/graph/badge.svg)](https://codecov.io/gh/tr0llex/Samoy.love-Homepage)
+[![CI](https://github.com/tr0llex/samoy.love/actions/workflows/ci.yml/badge.svg)](https://github.com/tr0llex/samoy.love/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/tr0llex/samoy.love/branch/main/graph/badge.svg)](https://codecov.io/gh/tr0llex/samoy.love)
 
 Личная страница — **https://samoy.love**
 
@@ -33,7 +33,8 @@ npm run og           # перегенерировать og-картинку из
 | `src/components/` | секции страницы |
 | `src/islands/` | 3D-сцена hero и tilt карточек — единственный клиентский JS |
 | `scripts/make-og.mjs` | генератор og-картинки |
-| `deploy/nginx/` | конфиги боевого сервера |
+| `docs/design.md` | дизайн-документ: концепция, композиция, решения |
+| `.deploy-kit/prod.env` | описание цели выкатки |
 
 Контент правится в JSON — добавить проект или ачивку можно без единой строки кода.
 Тесты проверяют, что ссылки между файлами не разъехались: например, что веха пути
@@ -41,6 +42,14 @@ npm run og           # перегенерировать og-картинку из
 
 ## Деплой
 
-Выкатка — общим пайплайном [deploy-kit](https://github.com/tr0llex/deploy-kit),
-описание цели в `.deploy-kit/prod.env`. Раскладка nginx и порядок первичной
-настройки сервера — [DEPLOY.md](DEPLOY.md).
+Выкатка — общим пайплайном [deploy-kit](https://github.com/tr0llex/deploy-kit):
+пуш в `main` собирает артефакт, раскладывает его рядом с текущим релизом и
+атомарно переключает симлинк, сверяя версию после переключения.
+
+```bash
+dk deploy samoy.love   # локально, тем же путём, что и CI
+dk rollback samoy.love
+```
+
+Описание цели — `.deploy-kit/prod.env`, конфигурация nginx — в
+[deploy-kit/nginx](https://github.com/tr0llex/deploy-kit/tree/main/nginx).
