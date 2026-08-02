@@ -72,5 +72,15 @@ const personLd = {
   <body>
     <a class="skip-link" href="#main">К основному содержимому</a>
     <slot />
+
+    <script>
+      import { initEventTracking } from '../islands/events';
+
+      // Слушатель делегированный и висит на document, поэтому ставится один
+      // раз за сессию, а не на каждом astro:page-load: document переживает
+      // переходы ClientRouter, и переподписка добавляла бы второй обработчик
+      // к тому же узлу — событие считалось бы дважды.
+      initEventTracking();
+    </script>
   </body>
 </html>

@@ -11,7 +11,7 @@ const sorted = [...projects].sort((a, b) => a.order - b.order);
   <div class="grid">
     {sorted.map((p) => (
       <article class="card reveal" data-tilt style={`--project-accent: ${p.accent}`}>
-        <a class="cover-link" href={`/projects/${p.slug}/`} aria-label={`${p.title} — подробнее`}>
+        <a class="cover-link" data-event="project_open" href={`/projects/${p.slug}/`} aria-label={`${p.title} — подробнее`}>
           <img
             src={p.cover}
             alt={`Обложка: ${p.title}`}
@@ -31,8 +31,8 @@ const sorted = [...projects].sort((a, b) => a.order - b.order);
             {p.stack.map((s) => <li class="chip">{s}</li>)}
           </ul>
           <div class="links">
-            {p.links.demo && <a class="go demo" href={p.links.demo} rel="noopener">{p.links.demoLabel ?? 'Открыть →'}</a>}
-            <a class="go" href={`/projects/${p.slug}/`}>Подробнее →</a>
+            {p.links.demo && <a class="go demo" data-event="project_open" href={p.links.demo} rel="noopener">{p.links.demoLabel ?? 'Открыть →'}</a>}
+            <a class="go" data-event="project_open" href={`/projects/${p.slug}/`}>Подробнее →</a>
           </div>
         </div>
       </article>

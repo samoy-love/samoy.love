@@ -50,13 +50,22 @@ end-to-end test asserts that a return trip creates exactly one.
 **No third-party trackers, no cookies.** There is no analytics script on the
 page, no cookie is set and there is no cookie banner to dismiss; fonts are
 self-hosted, so the browser asks nothing of anyone but samoy.love. Traffic is
-still counted, from a separate narrow nginx log format that carries only host,
+counted from a separate narrow nginx log format that carries only host,
 request, status, bytes and response time. `$remote_addr`, `$http_user_agent`,
 `$http_referer` and `$cookie_*` are physically absent from it: there is nothing
 by which two visits could be tied to one person, and a field that does not
-exist cannot leak through a parser mistake. The format lives in
+exist cannot leak through a parser mistake.
+
+Clicks through to a project, a repository or the mailbox are counted too, by an
+empty `POST /e/<event>` answered with 204 — no body, no parameters, no cookie,
+no session or visitor id. It lands in the same kind of log line: host, event
+name, zero bytes. This page used to promise "zero trackers"; once these
+counters appeared that stopped being literally true, so the promise now names
+what is actually absent instead. What happened is counted; who did it is not.
+
+Both formats live in
 [deploy-kit](https://github.com/tr0llex/deploy-kit/blob/main/nginx/conf.d/samoylove-log-metrics.conf)
-and [metrics.samoy.love](https://github.com/tr0llex/metrics.samoy.love) reads it.
+and [metrics.samoy.love](https://github.com/tr0llex/metrics.samoy.love) reads them.
 
 ## Stack
 
