@@ -15,4 +15,29 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+
+      - name: Тесты целостности контента
+        run: npm run test:coverage
+
+      - name: Отправить покрытие в Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          files: ./coverage/lcov.info
+          flags: unit
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false
+
       - run: npm run build
+
+      # Сборка проходит и с битыми ссылками внутри страниц — проверяем явно.
+      - name: Проверить ссылки и ассеты в сборке
+        run: |
+          cd dist
+          fail=0
+          for u in $(grep -oh 'href="/[^"#]*"' *.html projects/*/*.html | sed 's/href="//;s/"//' | sort -u); do
+            [ -f ".$u" ] || [ -f ".${u}index.html" ] || [ -f ".${u%/}.html" ] || { echo "битая ссылка: $u"; fail=1; }
+          done
+          for a in $(grep -oh 'src="/[^"]*"' *.html projects/*/*.html | sed 's/src="//;s/"//' | sort -u); do
+            [ -f ".$a" ] || { echo "нет файла: $a"; fail=1; }
+          done
+          exit $fail
