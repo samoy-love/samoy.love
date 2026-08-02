@@ -4,3 +4,8 @@ dist/
 test-results/
 playwright-report/
 coverage/
+
+# Рабочие копии агента: полная копия дерева, включая .github/workflows.
+# Не исполняется, но ломает поиск и аудит — grep находит вторые экземпляры
+# конфигов и workflow. Каталог временный, в истории ему делать нечего.
+.claude/worktrees/
