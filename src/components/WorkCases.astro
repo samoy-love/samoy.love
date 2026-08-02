@@ -63,8 +63,17 @@ import work from '../data/work.json';
     border-radius: var(--radius);
     overflow: clip;
     border: 1px solid var(--line);
+    margin-bottom: 0.4rem;
   }
-  .shot img { width: 100%; height: auto; }
+  .shot img { width: 100%; height: auto; display: block; }
+
+  /* Сетка вместо потока: у p и h3 глобально обнулены margin,
+     иначе строки кейса слипались бы в одну плотную кашу. */
+  .body {
+    display: grid;
+    gap: 0.5rem;
+    align-content: start;
+  }
 
   .arc {
     display: inline-block;
@@ -81,7 +90,7 @@ import work from '../data/work.json';
   .text { color: var(--text-dim); font-size: 0.95rem; }
 
   .results {
-    margin: 0.3rem 0 0;
+    margin: 0;
     padding: 0;
     list-style: none;
     display: grid;
@@ -102,7 +111,7 @@ import work from '../data/work.json';
   .stack {
     list-style: none;
     padding: 0;
-    margin: 0.3rem 0 0;
+    margin: 0.2rem 0 0;
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
