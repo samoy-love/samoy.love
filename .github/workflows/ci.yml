@@ -12,7 +12,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          # Активная LTS (24 «Krypton»). Node 22 ушёл в maintenance —
+          # ловить его баги на проде не хочется.
+          node-version: 24
           cache: npm
       - run: npm ci
 
