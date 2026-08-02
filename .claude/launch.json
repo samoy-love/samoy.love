@@ -2,7 +2,7 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "samoy-love-dev",
+      "name": "samoylove-dev",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
       "port": 4321
@@ -14,7 +14,7 @@
         "astro",
         "preview",
         "--root",
-        "../samoy-status",
+        "../samoylove-status",
         "--port",
         "4331"
       ],
