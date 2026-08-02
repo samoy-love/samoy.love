@@ -21,7 +21,9 @@ jobs:
     uses: tr0llex/deploy-kit/.github/workflows/static-site.yml@main
     with:
       config: .deploy-kit/prod.env
-      nginx-conf: deploy/nginx/samoy.love.conf
+      # nginx-conf не передаём: конфигурация живёт только в deploy-kit/nginx,
+      # своей копии в этом репозитории нет — путь вёл в никуда.
+      node-version: 24
       # Полный регресс: тесты целостности контента с покрытием и сборка.
       # Красный регресс = выкатки нет.
       gates: npm ci && npm run test:coverage && npm run build

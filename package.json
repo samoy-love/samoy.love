@@ -3,13 +3,18 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "og": "node scripts/make-og.mjs",
     "test": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "e2e": "playwright test",
+    "e2e:prod": "playwright test --config=playwright.prod.config.ts"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
@@ -19,6 +24,7 @@
     "ogl": "^1.0.11"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.1",
     "@vitest/coverage-v8": "^4.1.10",
     "vitest": "^4.1.10"
   }
