@@ -6,5 +6,12 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     include: ['src/**/*.test.ts'],
+    coverage: {
+      provider: 'v8',
+      // lcov.info ждёт codecov-action в CI. По умолчанию v8-провайдер отдаёт
+      // html/clover/json — lcov.info среди них нет, и загрузка покрытия молча
+      // ничего не находила: fail_ci_if_error: false это прятал.
+      reporter: ['text', 'lcov'],
+    },
   },
 })
