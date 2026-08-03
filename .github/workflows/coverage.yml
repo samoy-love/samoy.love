@@ -34,6 +34,9 @@ jobs:
     name: Покрытие main в Codecov
     runs-on: ubuntu-latest
     steps:
+      # Версии действий держать те же, что в ci.yml: цифра обязана
+      # считаться одинаково на PR и на main, иначе сравнение «PR против main»
+      # сравнивает прогоны на разных раннерах.
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:

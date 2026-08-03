@@ -21,12 +21,12 @@
     <circle cx="440" cy="220" r="14" fill="#ffd7e5"/>
     <circle cx="560" cy="420" r="11"/>
   </g>
-  <!-- бантик Hello Kitty на хабе -->
+  <!-- бантик на хабе -->
   <g transform="translate(440 190)">
     <circle cx="0" cy="0" r="7" fill="#e84c6f"/>
     <path d="M-6 -3 C-22 -14 -26 8 -7 4 Z" fill="#e84c6f"/>
     <path d="M6 -3 C22 -14 26 8 7 4 Z" fill="#e84c6f"/>
   </g>
   <text x="80" y="470" font-family="Consolas, monospace" font-size="16" fill="#a37d92">offline pwa · canvas · маршруты на клиенте</text>
-  <text x="80" y="50" font-family="Consolas, monospace" font-size="22" fill="#ff9dbb">hello kitty метро</text>
+  <text x="80" y="50" font-family="Consolas, monospace" font-size="22" fill="#ff9dbb">метро</text>
 </svg>

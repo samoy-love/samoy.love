@@ -10,13 +10,13 @@
       "Хеш-контроль целостности: Blake3 / SHA-256",
       "Админка: ZIP → мгновенная публикация версии"
     ],
-    "links": { "demo": "https://launcher.samoy.love", "demoLabel": "Сайт →", "repo": "" },
+    "links": { "demo": "https://launcher.samoy.love", "demoLabel": "Сайт →", "repo": "https://github.com/tr0llex/chillhub" },
     "cover": "/covers/chillhub.svg",
     "order": 1
   },
   {
     "slug": "metro",
-    "title": "Hello Kitty Метро",
+    "title": "Метро",
     "tagline": "Офлайн-PWA со схемой московского метро на Canvas",
     "accent": "oklch(0.78 0.17 350)",
     "stack": ["React 19", "TypeScript", "Canvas 2D", "Go"],
@@ -25,7 +25,7 @@
       "Собственный Go-решатель октолинейного layout",
       "Ориентир качества схемы — Яндекс.Метро"
     ],
-    "links": { "demo": "https://metro.samoy.love", "demoLabel": "Открыть →", "repo": "" },
+    "links": { "demo": "https://metro.samoy.love", "demoLabel": "Открыть →", "repo": "https://github.com/tr0llex/metro-map" },
     "cover": "/covers/metro.svg",
     "order": 2
   },
@@ -40,7 +40,7 @@
       "Бинарный протокол: 19 типов событий",
       "Матчи по 5 минут, прогрессия, косметика, ачивки"
     ],
-    "links": { "demo": "https://snakes.samoy.love", "demoLabel": "Играть →", "repo": "" },
+    "links": { "demo": "https://snakes.samoy.love", "demoLabel": "Играть →", "repo": "https://github.com/tr0llex/snakes" },
     "cover": "/covers/snakes.svg",
     "order": 3
   }

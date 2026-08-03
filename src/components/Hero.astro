@@ -85,6 +85,13 @@ const featured = profile.featuredAchievements
 
   let dispose: (() => void) | null = null;
 
+  // Номер «поколения» страницы. Модуль сцены грузится асинхронно, и уйти со
+  // страницы можно раньше, чем он приедет: тогда astro:before-swap отрабатывает
+  // вхолостую (dispose ещё null), а промис резолвится уже после свопа и создаёт
+  // WebGL-контекст на выброшенном канвасе — тот держится до следующего свопа,
+  // а лимит одновременных контекстов у браузера невелик.
+  let generation = 0;
+
   // astro:page-load вместо прямого вызова: с ClientRouter этот модуль
   // выполняется один раз, а канвас после каждой навигации новый.
   document.addEventListener('astro:page-load', () => {
@@ -96,9 +103,18 @@ const featured = profile.featuredAchievements
       return;
     }
 
+    const mine = ++generation;
+
     import('../islands/hero-scene')
       .then(({ initHeroScene }) => {
-        dispose = initHeroScene(canvas);
+        const stop = initHeroScene(canvas);
+        // Страница успела смениться, пока модуль грузился — сцена не нужна,
+        // гасим её сразу, а не оставляем висеть до следующего свопа.
+        if (mine !== generation) {
+          stop?.();
+          return;
+        }
+        dispose = stop;
         if (!dispose) canvas.remove();
       })
       .catch(() => canvas.remove());
@@ -107,6 +123,7 @@ const featured = profile.featuredAchievements
   // Уходя со страницы, гасим сцену: иначе rAF продолжает рисовать в
   // выброшенный канвас, а каждый визит на главную плодит новый контекст.
   document.addEventListener('astro:before-swap', () => {
+    generation++;
     dispose?.();
     dispose = null;
   });
