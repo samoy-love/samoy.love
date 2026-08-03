@@ -77,7 +77,7 @@ test.describe('главная страница', () => {
 
     for (const [title, slug, demo] of [
       ['ChillHub', 'chillhub', 'https://launcher.samoy.love'],
-      ['Hello Kitty Метро', 'metro', 'https://metro.samoy.love'],
+      ['Метро', 'metro', 'https://metro.samoy.love'],
       ['Snakes', 'snakes', 'https://snakes.samoy.love'],
     ] as const) {
       const card = cards.filter({ has: page.getByRole('heading', { name: title, level: 3 }) });

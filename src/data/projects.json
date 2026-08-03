@@ -16,7 +16,7 @@
   },
   {
     "slug": "metro",
-    "title": "Hello Kitty Метро",
+    "title": "Метро",
     "tagline": "Офлайн-PWA со схемой московского метро на Canvas",
     "accent": "oklch(0.78 0.17 350)",
     "stack": ["React 19", "TypeScript", "Canvas 2D", "Go"],
