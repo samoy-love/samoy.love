@@ -4,7 +4,7 @@
     {
       "name": "samoylove-dev",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeArgs": ["run", "dev", "--", "--port", "4321"],
       "port": 4321
     },
     {
@@ -14,7 +14,7 @@
         "astro",
         "preview",
         "--root",
-        "../samoylove-status",
+        "../samoy-status",
         "--port",
         "4331"
       ],
