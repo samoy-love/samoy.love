@@ -38,6 +38,7 @@ jobs:
   coverage:
     name: Покрытие main в Codecov
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       # Версии действий держать те же, что в ci.yml: цифра обязана
       # считаться одинаково на PR и на main, иначе сравнение «PR против main»
