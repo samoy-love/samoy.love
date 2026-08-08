@@ -66,10 +66,14 @@ jobs:
       # nginx-conf не передаём: конфигурация живёт только в deploy-kit/nginx,
       # своей копии в этом репозитории нет — путь вёл в никуда.
       node-version: 24
-      # Полный регресс: тесты целостности контента с покрытием и сборка.
-      # Красный регресс = выкатки нет.
+      # Лёгкий гейт: только сборка и проверка инлайн-скриптов. Полный регресс
+      # (test:coverage) уже прошёл на этом дереве в ci.yml — PR мержится
+      # только зелёным, а push в main здесь идёт на смёрженный коммит,
+      # который уже прогнан. Гонять vitest третий раз на том же дереве —
+      # не лишняя надёжность, а лишние минуты и деньги; цифру покрытия для
+      # main отдельно считает coverage.yml.
       # check:no-inline-scripts — часть гейта, а не украшение: CSP на проде
       # отдаёт script-src 'self', и вернувшийся инлайн-скрипт не выполнится.
-      gates: npm ci && npm run test:coverage && npm run build && npm run check:no-inline-scripts
+      gates: npm ci && npm run build && npm run check:no-inline-scripts
       dry-run: ${{ inputs.dry-run == true }}
     secrets: inherit
