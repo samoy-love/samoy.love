@@ -14,7 +14,7 @@
         "astro",
         "preview",
         "--root",
-        "../samoy-status",
+        "../status.samoy.love",
         "--port",
         "4331"
       ],
