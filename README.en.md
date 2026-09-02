@@ -2,8 +2,8 @@
 
 [Русский](README.md) · English
 
-[![CI](https://github.com/tr0llex/samoy.love/actions/workflows/ci.yml/badge.svg)](https://github.com/tr0llex/samoy.love/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/tr0llex/samoy.love/branch/main/graph/badge.svg)](https://codecov.io/gh/tr0llex/samoy.love)
+[![CI](https://github.com/samoy-love/samoy.love/actions/workflows/ci.yml/badge.svg)](https://github.com/samoy-love/samoy.love/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/samoy-love/samoy.love/branch/main/graph/badge.svg)](https://codecov.io/gh/samoy-love/samoy.love)
 [![prod](https://img.shields.io/website?url=https%3A%2F%2Fsamoy.love&up_message=online&up_color=2ea043&down_message=offline&label=samoy.love)](https://samoy.love)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -40,8 +40,8 @@ torn down on navigation — an end-to-end test asserts it never leaks.
 fonts are self-hosted. Traffic and link clicks are counted anonymously through
 a narrow nginx log format (no IP, UA, referer, cookie) and an empty
 `POST /e/<event>`. Both formats live in
-[deploy-kit](https://github.com/tr0llex/deploy-kit/blob/main/nginx/conf.d/samoylove-log-metrics.conf),
-read by [metrics.samoy.love](https://github.com/tr0llex/metrics.samoy.love).
+[deploy-kit](https://github.com/samoy-love/deploy-kit/blob/main/nginx/conf.d/samoylove-log-metrics.conf),
+read by [metrics.samoy.love](https://github.com/samoy-love/metrics.samoy.love).
 
 Design decisions and performance budgets — in
 [docs/design.md](docs/design.md) (Russian).
@@ -112,7 +112,7 @@ dk deploy samoy.love     # roll out
 dk rollback samoy.love   # roll back
 ```
 
-The mechanism itself lives in [deploy-kit](https://github.com/tr0llex/deploy-kit),
+The mechanism itself lives in [deploy-kit](https://github.com/samoy-love/deploy-kit),
 nginx configuration included. This repository has no deployment scripts of its
 own.
 
@@ -123,13 +123,13 @@ pipeline, one status page, one monitoring stack.
 
 | Project | What it is | Code |
 | --- | --- | --- |
-| [samoy.love](https://samoy.love) | personal homepage and showcase | [samoy.love](https://github.com/tr0llex/samoy.love) |
-| [launcher.samoy.love](https://launcher.samoy.love) | ChillHub — a Windows game launcher with diff updates | [chillhub](https://github.com/tr0llex/chillhub) |
-| [snakes.samoy.love](https://snakes.samoy.love) | multiplayer territory capture, binary WebSocket protocol | [snakes](https://github.com/tr0llex/snakes) |
-| [metro.samoy.love](https://metro.samoy.love) | offline PWA of the Moscow metro map | [metro-map](https://github.com/tr0llex/metro-map) |
-| [status.samoy.love](https://status.samoy.love) | service status: uptime, versions, incidents | [status.samoy.love](https://github.com/tr0llex/status.samoy.love) |
-| [metrics.samoy.love](https://github.com/tr0llex/metrics.samoy.love) | monitoring and traffic stats without third-party trackers | [metrics.samoy.love](https://github.com/tr0llex/metrics.samoy.love) |
-| — | the shared release pipeline | [deploy-kit](https://github.com/tr0llex/deploy-kit) |
+| [samoy.love](https://samoy.love) | personal homepage and showcase | [samoy.love](https://github.com/samoy-love/samoy.love) |
+| [launcher.samoy.love](https://launcher.samoy.love) | ChillHub — a Windows game launcher with diff updates | [chillhub](https://github.com/samoy-love/chillhub) |
+| [snakes.samoy.love](https://snakes.samoy.love) | multiplayer territory capture, binary WebSocket protocol | [snakes](https://github.com/samoy-love/snakes) |
+| [metro.samoy.love](https://metro.samoy.love) | offline PWA of the Moscow metro map | [metro-map](https://github.com/samoy-love/metro-map) |
+| [status.samoy.love](https://status.samoy.love) | service status: uptime, versions, incidents | [status.samoy.love](https://github.com/samoy-love/status.samoy.love) |
+| [metrics.samoy.love](https://github.com/samoy-love/metrics.samoy.love) | monitoring and traffic stats without third-party trackers | [metrics.samoy.love](https://github.com/samoy-love/metrics.samoy.love) |
+| — | the shared release pipeline | [deploy-kit](https://github.com/samoy-love/deploy-kit) |
 
 ## Contacts and licence
 
