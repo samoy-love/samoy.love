@@ -152,7 +152,7 @@ jobs:
           path: |
             playwright-report/
             test-results/
-          retention-days: 7
+          retention-days: 1
 
   # Переименование или слияние задач CI не красит прогон в красный — красной
   # становится защита ветки, и только через день, на СЛЕДУЮЩЕМ PR: main ждёт
