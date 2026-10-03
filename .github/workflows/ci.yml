@@ -38,7 +38,7 @@ jobs:
   # клоне отсутствует — здесь страховка.
   commits:
     name: Коммиты без упоминаний ИИ
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, home]
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -64,7 +64,7 @@ jobs:
           echo "чисто"
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, home]
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -113,7 +113,7 @@ jobs:
 
   e2e:
     name: Сквозные тесты
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, home]
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -171,7 +171,7 @@ jobs:
   # передаётся только этому шагу, а не всей задаче.
   protection-sync:
     name: Защита ветки соответствует задачам CI
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, home]
     timeout-minutes: 5
     # needs — не про очерёдность результата, а про то, что видит Jobs API.
     # GitHub регистрирует задачу с зависимостями в API прогона только когда
